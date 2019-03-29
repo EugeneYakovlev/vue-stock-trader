@@ -8,13 +8,13 @@
                 </div>
                 <v-layout row wrap class="panel-body">
                     <v-flex xs8>
-                        <input type="number" placeholder="Number" v-model="quantity">
+                        <input type="number" placeholder="Number" min="1" step="1" v-model.number="quantity">
                     </v-flex>
                     <v-flex xs4 class="pl-2">
                         <v-btn depressed dark
                                @click="buyStock"
-                               :disabled="quantity <= 0 && !Number.isInteger(quantity)">
-                            Buy
+                               :disabled="insufficientFunds || quantity <= 0">
+                            {{ insufficientFunds ? 'ins. Funds' : 'Buy'}}
                         </v-btn>
                     </v-flex>
                 </v-layout>
@@ -40,8 +40,17 @@
                     stockQuantity: this.quantity
                 };
 
+                this.$store.dispatch('buyStock',order);
                 console.log(order);
                 this.quantity = 0;
+            }
+        },
+        computed: {
+            funds() {
+              return this.$store.getters.funds;
+            },
+            insufficientFunds() {
+                return this.quantity * this.stock.price > this.funds;
             }
         }
     }

@@ -10,18 +10,34 @@
         </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-            <v-btn flat>End day</v-btn>
+            <p class="subheading my-auto mx-2">Your Funds: {{funds | currency}}</p>
+            <v-btn flat @click="endDay">End day</v-btn>
             <v-select flat solo :items="items" label="Load Data" class="selectWrap"></v-select>
         </v-toolbar-items>
     </v-toolbar>
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
+
     export default {
         name: "Header",
         data() {
             return {
                 items: ['Save Data', 'Load Data']
+            }
+        },
+        methods: {
+            ...mapActions([
+                'randomizeStocks'
+            ]),
+            endDay() {
+                this.randomizeStocks();
+            }
+        },
+        computed: {
+            funds() {
+                return this.$store.getters.funds;
             }
         }
     }
