@@ -2,16 +2,20 @@
     <v-flex xs4 class="px-2 my-2">
         <v-card dark>
             <v-card-text class="px-4">
-                <div class="panel-title">
-                    Stock name
-                    <small>(Price: PRICE)</small>
+                <div class="panel-title subheading">
+                    {{ stock.name }}
+                    <small>(Price: {{ stock.price }})</small>
                 </div>
                 <v-layout row wrap class="panel-body">
                     <v-flex xs8>
-                        <input type="text" placeholder="Number">
+                        <input type="number" placeholder="Number" v-model="quantity">
                     </v-flex>
-                    <v-flex xs4 class="pl-1">
-                        <v-btn depressed dark>Buy</v-btn>
+                    <v-flex xs4 class="pl-2">
+                        <v-btn depressed dark
+                               @click="buyStock"
+                               :disabled="quantity <= 0 && !Number.isInteger(quantity)">
+                            Buy
+                        </v-btn>
                     </v-flex>
                 </v-layout>
             </v-card-text>
@@ -21,7 +25,25 @@
 
 <script>
     export default {
-        name: "Stock"
+        name: "Stock",
+        props: ['stock'],
+        data() {
+            return {
+                quantity: 0
+            }
+        },
+        methods: {
+            buyStock() {
+                const order = {
+                    stockId: this.stock.id,
+                    stockPrice: this.stock.price,
+                    stockQuantity: this.quantity
+                };
+
+                console.log(order);
+                this.quantity = 0;
+            }
+        }
     }
 </script>
 

@@ -1,8 +1,11 @@
 import Vue from 'vue'
-import Vuetify from "vuetify";
-import App from './App.vue'
 import VueRouter from 'vue-router';
+
+import App from './App.vue'
 import { routes } from './routes.js';
+import store from  './store/store.js';
+
+import Vuetify from "vuetify";
 import 'vuetify/dist/vuetify.min.css'
 import 'vuetify/src/stylus/app.styl';
 
@@ -20,5 +23,6 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   render: h => h(App),
-  router
+  router,
+  store
 });
