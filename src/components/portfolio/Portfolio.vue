@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <v-layout row wrap>
         <app-stock v-for="stock in stocks" :stock="stock"></app-stock>
-    </div>
+    </v-layout>
 </template>
 
 <script>

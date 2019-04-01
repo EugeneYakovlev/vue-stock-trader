@@ -12,7 +12,21 @@
         <v-toolbar-items>
             <p class="subheading my-auto mx-2">Your Funds: {{funds | currency}}</p>
             <v-btn flat @click="endDay">End day</v-btn>
-            <v-select flat solo :items="items" label="Load Data" class="selectWrap"></v-select>
+            <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-btn dark v-on="on" flat="">
+                        Save & Load
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-tile>
+                        <v-list-tile-title v-on:click="loadData" style="cursor: pointer;">Load Data</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile>
+                        <v-list-tile-title v-on:click="saveData" style="cursor: pointer;">Save Data</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
         </v-toolbar-items>
     </v-toolbar>
 </template>
@@ -24,15 +38,28 @@
         name: "Header",
         data() {
             return {
-                items: ['Save Data', 'Load Data']
+                items: ['Save Data', 'Load Data'],
+                saved: false,
             }
         },
         methods: {
-            ...mapActions([
-                'randomizeStocks'
-            ]),
+            ...mapActions({
+                randomizeStocks: 'randomizeStocks',
+                fetchData: 'loadData'
+            }),
             endDay() {
                 this.randomizeStocks();
+            },
+            saveData() {
+                const data = {
+                    funds: this.$store.getters.funds,
+                    stockPortfolio: this.$store.getters.stockPortfolio,
+                    stocks: this.$store.getters.stocks
+                };
+                this.$http.put('data.json', data);
+            },
+            loadData() {
+                this.fetchData();
             }
         },
         computed: {

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 
 import App from './App.vue'
 import {routes} from './routes.js';
@@ -10,6 +11,9 @@ import 'vuetify/dist/vuetify.min.css'
 import 'vuetify/src/stylus/app.styl';
 
 Vue.use(VueRouter);
+Vue.use(VueResource);
+
+Vue.http.options.root = 'https://stock-trader-3d7c3.firebaseio.com/';
 
 Vue.use(Vuetify);
 
