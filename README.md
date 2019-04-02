@@ -1,4 +1,5 @@
-# stock-trader
+# Stock-trader
+Includes Vue-Router, Vue-Resources, Vuetify, Vuex, some post & get requests.
 
 ## Project setup
 ```
