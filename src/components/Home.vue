@@ -1,9 +1,9 @@
 <template>
     <div>
         <h1 class="display-2">Trade or view your Portfolio</h1>
-        <h6 class="title my-2">You may Save & Load your Data</h6>
-        <h6 class="title my-2">Click on 'End day' to begin a New Day!</h6>
-        <p class="subheading mt-4">Your Funds: {{funds | currency}}</p>
+        <h6 class="subheading my-2">You may Save & Load your Data</h6>
+        <h6 class="subheading my-2">Click on 'End day' to begin a New Day!</h6>
+        <p class="mt-4">Your Funds: {{funds | currency}}</p>
     </div>
 </template>
 
